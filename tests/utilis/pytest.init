@@ -1,2 +1,2 @@
  [pytest]
- addopts = --browser firefox
+ addopts = --headed
