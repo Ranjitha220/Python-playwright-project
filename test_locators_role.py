@@ -13,7 +13,7 @@ def test_locators_get_by_role(page):
     page.goto("https://demowebshop.tricentis.com/")
     page.get_by_role("link", name="Register").click()
     page.get_by_role("radio", name="Female", exact=True).click()
-    page.get_by_role("textbox", name="First name:").fill("ranjitha")--------
+    page.get_by_role("textbox", name="First name:").fill("ranjitha")
     page.get_by_role("textbox", name="Last name:").fill("d")
     page.get_by_role("textbox", name="Email").fill("abc@gmail.com")
     page.get_by_role("textbox", name="Confirm password:").fill("abc123")
