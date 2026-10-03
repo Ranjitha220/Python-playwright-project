@@ -1,23 +1,50 @@
+#work only with async
+
+
 import pytest
-from playwright.sync_api import Page, expect
+
+from playwright.async_api import expect 
 
 # @pytest.mark.asyncio
-# async def test_click_fill_type_clear_waits(async_page):
-#       await async_page.goto("https://www.google.com/")
-#       await expect(async_page).to_have_title("Google")
-#       ele = await async_page.locator("textarea[name='q']").type("Mobile")
-#       await async_page.locator("textarea[name='q']").clear()
-#       await async_page.locator("textarea[name='q']").fill("Books")
-#       await async_page.locator("textarea[name='q']").Enter()
-#       expect(async_page).to_have_title("Books - Google Search")      
-      
-      
+# async def test_actions_click_db_(async_page):
+#     await async_page.goto("https://demo.guru99.com/test/simple_context_menu.html",wait_until="domcontentloaded")
+#     dbc = async_page.locator("//button[text()='Double-Click Me To See Alert']")
+#     dbc.dblclick()
+    
 @pytest.mark.asyncio
-async def test_get_text_attribute(async_page):
-      await async_page.goto("https://demowebshop.tricentis.com/")
-      print(await async_page.locator("#pollanswers-1").inner_text())
+async def test_login_(async_page):
+    await async_page.goto("https://agents.akbartravelsonline.com/b2bplus/login")
+    await async_page.locator("#mat-input-1").fill("abc@gmail.com")
+    await async_page.locator("#mat-input-2").fill("abc@123") 
+    await async_page.locator("//div[text()=' Sign In ']").click()
+
+@pytest.mark.asyncio
+async def test_reg_(async_page):
+    await async_page.goto("https://agents.akbartravelsonline.com/b2bplus/apisign-up")
+    await async_page.locator("#mat-input-0").fill("abc")
+    await async_page.locator("#mat-input-1").fill("abc@gmail.com") 
+    await async_page.locator("#mat-input-2").fill("1234567899")
+    # time 
+
+    await async_page.wait_for_timeout(10000)
+    await async_page.locator("//span[text()='Submit']").click()
+    ele = async_page.locator("p[text()='Get Ready For Integration! Our Team Will Contact You Shortly.' ]")
+    
+
       
-      print(await async_page.get_by_text("$25 Virtual Gift Card").get_attribute("href"))
+#python -m --fixture   in terminal run it  
+  
+## install packages for async 
+#   python -m pip install anyio
+#   python -m pip install pytest-asyncio 
+#   python -m pip install pytest-tornasync     
+#   python -m pip install pytest-trio 
+#   python -m pip install pytest-twisted
+#   python -m pip install twisted 
+
+
+
+
       
       
-   
+
