@@ -1,0 +1,22 @@
+
+ 
+def test_count_the_link(page):
+    page.goto("https://demowebshop.tricentis.com/")
+    links = page.locator("//a").all() #displays links in list 
+    
+    # links_locator.first.wait_for(state="attached")
+    # links = links_locator.all()
+    
+    print(len(links)) #length of elements in the list 
+    print(type(links))
+    
+    for i in links: #print link one by one 
+        print(i.text_content(),flush=True) #text of the link 
+        
+    print("*" * 50)
+    
+    for i in links:
+        print(i.get_attribute("href"),flush=True) #href of the attribute 
+        
+# Run ->  python -m pytest tables.py --headed -s -v
+ 
