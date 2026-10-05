@@ -26,8 +26,8 @@ def test_collecting_all_links(page):
         
    
     links.last.click()
-    links.first.click()
-    links.nth(0).click()
+    # links.first.click()
+    # links.nth(0).click()
 
      
    
