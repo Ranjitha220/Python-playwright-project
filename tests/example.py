@@ -15,5 +15,4 @@ def test_navigate(page): #navigation methods
     page.go_back()
     page.go_forward()
     
-    
-    
+

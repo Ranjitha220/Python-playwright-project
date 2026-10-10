@@ -52,7 +52,7 @@ async def test_assertions(async_page):
         await expect(async_page).to_have_title("Demo Web Shop")
         options = async_page.locator("//li[@class='answer']")
         await expect.soft(options).to_have_count(4) #soft assertion - ignore
-           
+        await options.nth(0).click()  
        
         
 
