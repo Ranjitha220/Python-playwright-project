@@ -1,20 +1,25 @@
 import pytest
 from playwright.async_api import expect
 
-##file upload 
+
+#file upload 
    
-# @pytest.mark.asyncio
-# async def test_frm(async_page):
-#    await async_page.goto("https://the-internet.herokuapp.com/upload")
-#    file_input = async_page.locator("#file-upload")
-#    await file_input.set_input_files("/home/user/Documents/DOB admin.odt")
-#    await async_page.locator("#file-submit").click()
-#    await async_page.wait_for_timeout(5000)
-#    msg = async_page.get_by_text("File Uploaded!")
-#    await expect(msg).to_be_visible()
+@pytest.mark.asyncio
+async def test_frm(async_page):
+   await async_page.goto("https://the-internet.herokuapp.com/upload")
+   file_input = async_page.locator("#file-upload")
+   await file_input.set_input_files("/home/user/Documents/DOB admin.odt")
+   await async_page.locator("#file-submit").click()
+   await async_page.wait_for_timeout(5000)
+   msg = async_page.get_by_text("File Uploaded!")
+   await expect(msg).to_be_visible()
 
 
+<<<<<<< HEAD:tests/test_popup.py
 ##image popup
+=======
+#image popup
+>>>>>>> c3f66a7 (Oct_7):test_popup.py
 @pytest.mark.asyncio
 async def test_frm(async_page):
     await async_page.goto("https://demo.guru99.com/test/guru99home/", wait_until="load")

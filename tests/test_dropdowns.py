@@ -1,63 +1,102 @@
+# import  pytest
+# @pytest.mark.asyncio
+# async def test_dropdowns(async_page):
+#     await async_page.goto("https://www.amazon.in/")
+#     drop_down = async_page.locator("#searchDropdownBox")
+#     #selct by index
+#     await drop_down.select_option(index=5)
+#     #select by value
+#     await drop_down.select_option(value="search-alias=baby")
+#     #select by label
+#     await drop_down.select_option(label="Electronics")
+
+#========================================================================
+
+# import pytest
+# from playwright.async_api import Page
+
+
+# @pytest.mark.asyncio
+# async def test_drop_down(async_page: Page):
+#     await async_page.goto("https://www.amazon.in/")
+
+#     search_box = async_page.locator("#twotabsearchtextbox")
+#     await search_box.fill("books")
+
+#     # Dynamic dropdown suggestions
+#     suggestions = async_page.locator(
+#         "div.s-suggestion.s-suggestion-ellipsis-direction"
+#     )
+
+#     # Wait for at least one suggestion
+#     await suggestions.first.wait_for(state="visible")
+
+#     count = await suggestions.count()
+#     print("Total number of options =", count)
+
+#     # Print all suggestions with index
+#     for i in range(count):
+#         text = await suggestions.nth(i).inner_text()
+#         print(f"{i}: {text}")
+
+    
+#     await async_page.get_by_text("for kids 9-12 years").click()
+#     await async_page.wait_for_timeout(2000)
+#========================================================================
+# import pytest
+# from playwright.async_api import Page
+# @pytest.mark.asyncio
+# async def test_drop_downs_select_with_keybord(async_page):
+#     await async_page.goto("https://www.amazon.in/")
+#     search_box = async_page.locator("#twotabsearchtextbox")
+#     await search_box.fill("books")
+#     await async_page.wait_for_timeout(2000)
+
+#     await search_box.press("ArrowDown")
+#     await search_box.press("ArrowDown")
+#     await search_box.press("ArrowDown")
+#     await search_box.press("Enter")
+#     await async_page.wait_for_timeout(2000)
+
+
+#====================================================================================================
+
+                
+#========================================================================
+
 import pytest
 
 @pytest.mark.asyncio
-# async def test_dropdowns(async_page):
-#     await async_page.goto("https://www.amazon.in/")
-#     search_box = async_page.locator("#twotabsearchtextbox")
-#     await search_box.fill("books")
-    
-#  #dynamic drop down
-#     lists= async_page.locator("//div[@class='s-suggestion s-suggestion-ellipsis-direction']")
-  
-#   #list all suggesion
-#     await lists.first.wait_for()
-  
-#   #print the no of lists
-#     count=await lists.count()
-#     print("Total lists: ", count)
-  
-#   #print lists using with index
-  
-#     for i in range(count):
-#      text= await lists.nth(i).inner_text()  
-#      print(f"{i} : {text}")
-      
-#     await async_page.get_by_text("helf for home").click()  
-#...............................................................    
-async def test_drop(async_page):
-  await async_page.goto("https://www.amazon.in/")
-  drop_down= async_page.locator("#searchDropdownBox")
-    
-    #select index
-  await drop_down.select_option(index=5)
+async def test_drop_downs_select_with_sorted(async_page):
+    await async_page.goto("https://www.amazon.in/")
 
-#select by value
+    search_box = async_page.locator("#twotabsearchtextbox")
+    await search_box.fill("books")
 
-  await drop_down.select_option(value="search-alias=baby")
-  
-  #select by label
-  await drop_down.select_option(label="Electronics")
-##...........................................................
-#  async def test_drop(async_page):
-#     await async_page.goto("https://www.amazon.in/")
+    # Wait for suggestions
+    suggestions = async_page.locator(
+        "//div[@class='s-suggestion s-suggestion-ellipsis-direction']"
+    )
 
-#     search_box = async_page.locator("#twotabsearchtextbox")
-#     await search_box.fill("books")
+    await suggestions.first.wait_for()
 
-#     lists = async_page.locator("//div[@class='s-suggestion s-suggestion-ellipsis-direction']")
+    # Get all suggestion texts
+    options = await suggestions.all_inner_texts()
 
-#     await lists.first.wait_for()
+    # Sort alphabetically
+    sorted_options = sorted(options, key=str.lower)
 
-#     options = await lists.all_inner_texts()
-#     options.sort(key=str.lower)
+    # Select the 4th item (index 3)
+    expected_text = sorted_options[3]
 
-#     expected_text = options[3]
+    count = await suggestions.count()
 
-    
-#     suggestion = lists.filter(has_text=expected_text).first
+    for i in range(count):
+        suggestion_text = await suggestions.nth(i).inner_text()
 
-#     await suggestion.click()
+        if suggestion_text == expected_text:
+            await suggestions.nth(i).click()
+            break
 
-#     act = await search_box.input_value()
-
-#     assert act.lower() == expected_text.lower()
+    # Verify selected value
+    assert (await search_box.input_value()).lower() == expected_text.lower()
