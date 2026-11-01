@@ -103,68 +103,67 @@ from playwright.async_api import async_playwright, expect
 #     )
 
 
-# @pytest.mark.asyncio
-# async def test_store_stage(async_page):
-#     await async_page.goto("https://demowebshop.tricentis.com/")
-#     await async_page.get_by_text("Log in").click()
-#     await async_page.locator("#Email").fill("abcnew1234@gmail.com")
-#     await async_page.locator("#Password").fill("123456789")
-#     await async_page.locator("//input[@value='Log in']").click()
-#     try:
-#         async_page.get_by_text("Log out")
-#     except Exception as e:
-#         print("user not login")
-#     #auth.josn
-#     await async_page.context.storage_state(
-#         path="session.json"
-#     )
-
-# @pytest.mark.asyncio
-# async def test_restore_session():
-#     async with async_playwright() as p:
-#     Browser = await p.chromium.launch(headless=False)
-#     context = await Browser.new_context(storage_state="session.json")
-#     page = await context.new_page()
-#     await page.goto("https://demowebshop.tricentis.com/")
-#     await page.wait_for_timeout(5000)
-    
-    
-    
 @pytest.mark.asyncio
-async def test_api_data_validation(async_page):
-    Base_url = "https://parabank.parasoft.com/parabank"
-    end_point = "register.htm"
-    username = "Ranju"
-    password = "abc@123"
-    await async_page.goto(Base_url+"/"+end_point)
+async def test_store_stage(async_page):
+    await async_page.goto("https://demowebshop.tricentis.com/")
+    await async_page.get_by_text("Log in").click()
+    await async_page.locator("#Email").fill("abcnew1234@gmail.com")
+    await async_page.locator("#Password").fill("123456789")
+    await async_page.locator("//input[@value='Log in']").click()
+    try:
+        async_page.get_by_text("Log out")
+    except Exception as e:
+        print("user not login")
+    #auth.josn
+    await async_page.context.storage_state(
+        path="session.json"
+    )
 
-    await async_page.locator("#customer\\.firstName").fill("Ranjitha")
-    await async_page.locator("#customer\\.lastName").fill("D")
-    await async_page.locator("#customer\\.address\\.street").fill(
-        "100 Test Street"
-    )
-    await async_page.locator("#customer\\.address\\.city").fill(
-        "Bengaluru"
-    )
-    await async_page.locator("#customer\\.address\\.state").fill(
-        "Karnataka"
-    )
-    await async_page.locator("#customer\\.address\\.zipCode").fill(
-        "560068"
-    )
-    await async_page.locator("#customer\\.phoneNumber").fill(
-        "8073368401"
-    )
-    await async_page.locator("#customer\\.ssn").fill("123456789")
-    await async_page.locator("#customer\\.username").fill(username)
-    await async_page.locator("#customer\\.password").fill(password)
-    await async_page.locator("#repeatedPassword").fill(password)
+@pytest.mark.asyncio
+async def test_restore_session(async_page):
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False)
+        context = await browser.new_context(storage_state="session.json")
+        page = await context.new_page()
+        await page.goto("https://demowebshop.tricentis.com/")
+        await page.wait_for_timeout(5000)
+    
+    
+# @pytest.mark.asyncio
+# async def test_api_data_validation(async_page):
+#     Base_url = "https://parabank.parasoft.com/parabank"
+#     end_point = "register.htm"
+#     username = "Ranju"
+#     password = "abc@123"
+#     await async_page.goto(Base_url+"/"+end_point)
 
-    await async_page.locator("input[value='Register']").click()
+#     await async_page.locator("#customer\\.firstName").fill("Ranjitha")
+#     await async_page.locator("#customer\\.lastName").fill("D")
+#     await async_page.locator("#customer\\.address\\.street").fill(
+#         "100 Test Street"
+#     )
+#     await async_page.locator("#customer\\.address\\.city").fill(
+#         "Bengaluru"
+#     )
+#     await async_page.locator("#customer\\.address\\.state").fill(
+#         "Karnataka"
+#     )
+#     await async_page.locator("#customer\\.address\\.zipCode").fill(
+#         "560068"
+#     )
+#     await async_page.locator("#customer\\.phoneNumber").fill(
+#         "8073368401"
+#     )
+#     await async_page.locator("#customer\\.ssn").fill("123456789")
+#     await async_page.locator("#customer\\.username").fill(username)
+#     await async_page.locator("#customer\\.password").fill(password)
+#     await async_page.locator("#repeatedPassword").fill(password)
 
-    # Verify registration result
-    await expect(
-        async_page.locator("#rightPanel")
-    ).to_contain_text("successfully", ignore_case=True)
+#     await async_page.locator("input[value='Register']").click()
 
-    print("Customer registered:", username)
+#     # Verify registration result
+#     await expect(
+#         async_page.locator("#rightPanel")
+#     ).to_contain_text("successfully", ignore_case=True)
+
+#     print("Customer registered:", username)
