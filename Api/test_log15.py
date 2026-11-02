@@ -1,6 +1,6 @@
 import pytest
 from playwright.async_api import expect
-from logger_config import logger
+from Api.logger_config import logger
 
 @pytest.mark.asyncio
 async def test_logfile(async_page):
@@ -40,7 +40,7 @@ validate with logout
 import pytest
 from playwright.async_api import expect
 
-from logger_config import logger
+from Api.logger_config import logger
 
 @pytest.mark.asyncio
 async def test_logfile(async_page):
